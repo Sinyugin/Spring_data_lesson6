@@ -9,6 +9,7 @@ angular.module('market', []).controller('indexController', function ($scope, $ht
             params: {
                 min_price: $scope.filter ? $scope.filter.min_price : null,
                 max_price: $scope.filter ? $scope.filter.max_price : null,
+                title_part: $scope.filter ? $scope.filter.title_part : null,
                 p: $scope.filter ? $scope.filter.p : null
             }})
 
@@ -24,6 +25,31 @@ angular.module('market', []).controller('indexController', function ($scope, $ht
         })
     }
 
+    $scope.addToCart = function (productId) {
+        $http.get('http://localhost:8080/api/v1/cart/add/' + productId).then(function (responce){
+            $scope.loadCart();
+        })
+    }
+
+    $scope.loadCart = function(){
+        $http.get('http://localhost:8080/api/v1/cart').then(function(response){
+            $scope.cart = response.data;
+        });
+    }
+
+    $scope.cleanCart = function(){
+        $http.get('http://localhost:8080/api/v1/cart/clean').then(function(response){
+            $scope.cart = response.data;
+        });
+    }
+
+    $scope.deleteProductInCart = function(productId){
+        $http.get('http://localhost:8080/api/v1/cart/delete/' + productId).then(function(response){
+            $scope.loadCart();
+        });
+    }
+
     $scope.loadProducts();
+    $scope.loadCart();
 
 });

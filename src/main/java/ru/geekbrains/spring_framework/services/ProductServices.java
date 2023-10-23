@@ -1,11 +1,14 @@
 package ru.geekbrains.spring_framework.services;
 
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
+import ru.geekbrains.spring_framework.dtos.ProductDto;
 import ru.geekbrains.spring_framework.entities.Product;
+import ru.geekbrains.spring_framework.exceptions.ResourceNotFoundException;
 import ru.geekbrains.spring_framework.repositories.ProductRepository;
 import ru.geekbrains.spring_framework.repositories.spicifications.ProductSpecifications;
 
@@ -28,7 +31,7 @@ public class ProductServices {
         if (titleLike != null){
             spec = spec.and(ProductSpecifications.titleLike(titleLike));
         }
-        return productRepository.findAll(spec, PageRequest.of(page -1,8));
+        return productRepository.findAll(spec, PageRequest.of(page -1,50));
     }
 
     public Optional<Product> findById(Long id) {
@@ -45,5 +48,16 @@ public class ProductServices {
 
     public void deleteProductById(Long id) {
         productRepository.deleteById(id);
+    }
+
+    public Product save(Product product){
+        return productRepository.save(product);
+    }
+@Transactional
+    public Product update(ProductDto productDto){
+        Product product = productRepository.findById(productDto.getId()).orElseThrow(() -> new ResourceNotFoundException("Невозможно обновить продукт, не найден в базе, id: " + productDto.getId()));
+        product.setPrice(productDto.getPrice());
+        product.setTitle(productDto.getTitle());
+        return product;
     }
 }

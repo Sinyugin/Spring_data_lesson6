@@ -1,6 +1,7 @@
 package ru.geekbrains.spring_framework.entities;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -8,6 +9,7 @@ import lombok.NoArgsConstructor;
 @Table(name = "products")
 @Data
 @NoArgsConstructor
+@AllArgsConstructor
 public class Product {
 
     @Id
