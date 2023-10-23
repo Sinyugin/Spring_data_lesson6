@@ -24,6 +24,10 @@
                 <input class="form-control" type="number" id="FilterMaxPrice" placeholder="максимальное значение" ng-model="filter.max_price">
             </div>
             <div class="form-group col-md-3">
+                <label for="Title_part">Поиск по названию</label>
+                <input class="form-control" type="text" id="Title_part" placeholder="поиск по названию" ng-model="filter.title_part">
+            </div>
+            <div class="form-group col-md-2">
                 <label for="Page">Номер страницы</label>
                 <input class="form-control" type="number" id="Page" placeholder="Номер страницы" ng-model="filter.p">
             </div>
@@ -32,6 +36,7 @@
             <button class="btn-success" type="submit">Фильтровать</button>
         </div>
     </form>
+    <p></p>
     <table class="table table-hover" cellpadding="0" cellspacing="0">
         <tr>
             <td>ID</td>
@@ -47,7 +52,44 @@
             <td>
                 <!--                <button type="button" class="btn-primary" ng-click="showProductInfo(p.id)">Info</button>-->
                 <!--                <button type="button" class="btn-danger" ng-click="deleteProductById(p.id)">Delete</button>-->
-                <button type="button" class="btn btn-danger" ng-click="deleteProductById(p.id)">Удалить</button>
+                <!--                <button type="button" class="btn btn-danger" ng-click="deleteProductById(p.id)">Удалить</button>-->
+            </td>
+            <td>
+                <button type="button" class="btn btn-primary" ng-click="addToCart(p.id)">В корзину</button>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+    <p></p>
+    <h2>Корзина</h2>
+    <table class="table table-hover" cellpadding="0" cellspacing="0">
+        <tr>
+            <td>ID</td>
+            <td>Название</td>
+            <td>Количество</td>
+            <td>Цена</td>
+            <td></td>
+        </tr>
+        <tbody>
+        <tr ng-repeat="item in cart.items">
+            <td>{{item.productId}}</td>
+            <td>{{item.productTitle}}</td>
+            <td>
+                <button type="button" class="btn-secondary"> - </button>
+                {{item.quantity}}
+                <button type="button" class="btn-secondary"> + </button>
+            </td>
+            <td>{{item.pricePerProduct + ' x ' + item.quantity + ' = ' + (item.price * item.quantity)}}</td>
+            <td>
+                <button type="button" class="btn-danger" ng-click="deleteProductInCart(item.productId)" >Удалить</button>
+            </td>
+        </tr>
+        <tr>
+            <td>Итого</td>
+            <td></td>
+            <td>{{cart.totalPrice}}</td>
+            <td>
+                <button type="button" class="btn-danger" ng-click="cleanCart(p.id)">Очистить корзину</button>
             </td>
         </tr>
         </tbody>

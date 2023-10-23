@@ -13,16 +13,16 @@ public class ProductDataGenerator {
     @Autowired
     private ProductRepository productRepository;
 
-    @EventListener(ApplicationReadyEvent.class)
-    public void generateDataStartup() {
-        Faker faker = new Faker();
-
-        for (int i = 0; i < 20; i++){
-            Product product = new Product();
-            product.setTitle(faker.food().fruit());
-            product.setPrice(faker.number().randomDigit());
-            productRepository.save(product);
-
-        }
-    }
+//    @EventListener(ApplicationReadyEvent.class)
+//    public void generateDataStartup() {
+//        Faker faker = new Faker();
+//
+//        for (int i = 0; i < 20; i++){
+//            Product product = new Product();
+//            product.setTitle(faker.food().fruit());
+//            product.setPrice(faker.number().randomDigit());
+//            productRepository.save(product);
+//
+//        }
+//    }
 }
