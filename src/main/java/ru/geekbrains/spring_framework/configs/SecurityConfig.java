@@ -11,13 +11,16 @@ import org.springframework.security.config.annotation.authentication.configurati
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.annotation.web.configuration.WebSecurityCustomizer;
 import org.springframework.security.config.annotation.web.configurers.CsrfConfigurer;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
+import ru.geekbrains.spring_framework.security.SecurityFilter;
 
 import java.util.List;
 
@@ -34,7 +37,11 @@ public class SecurityConfig {
     private final UserDetailsService userDetailsService;
 
     @Bean
-    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+    public WebSecurityCustomizer webSecurityCustomizer() {
+        return webSecurity -> webSecurity.ignoring().requestMatchers(antMatcher("/auth/**"));
+    }
+    @Bean
+    public SecurityFilterChain securityFilterChain(SecurityFilter filter, HttpSecurity http) throws Exception {
         return http
                 .csrf(CsrfConfigurer::disable)
                 .cors(cors->cors.configurationSource(corsConfigurationSource()))
@@ -43,6 +50,7 @@ public class SecurityConfig {
                 .authorizeHttpRequests(req -> req.requestMatchers(antMatcher("/edit_product.html")).hasAnyRole("ADMIN","MANAGER"))
                 .authorizeHttpRequests(req -> req.anyRequest().permitAll())
                 .authenticationProvider(authenticationProvider())
+                .addFilterBefore(filter, UsernamePasswordAuthenticationFilter.class)
         .build();
     }
 
