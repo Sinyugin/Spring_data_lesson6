@@ -1,5 +1,11 @@
 server:
   port: 8089
+integrations:
+  product-service:
+    url: http://localhost:8080/
+    read-timeout: 10000
+    write-timeout: 5000
+    connect-timeout: 5000
 
 
 

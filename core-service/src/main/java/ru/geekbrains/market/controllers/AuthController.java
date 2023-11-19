@@ -6,10 +6,7 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import ru.geekbrains.AuthRequest;
 import ru.geekbrains.AuthResponse;
 import ru.geekbrains.market.services.JwtService;
@@ -17,6 +14,7 @@ import ru.geekbrains.market.services.JwtService;
 
 @Slf4j
 @RestController
+@CrossOrigin("*")
 @RequestMapping("/api/v1/auth")
 public class AuthController {
 

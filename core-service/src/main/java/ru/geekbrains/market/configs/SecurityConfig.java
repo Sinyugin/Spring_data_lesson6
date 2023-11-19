@@ -24,6 +24,7 @@ import ru.geekbrains.market.security.SecurityFilter;
 
 import java.util.List;
 
+import static org.springframework.security.config.Customizer.withDefaults;
 import static org.springframework.security.web.util.matcher.AntPathRequestMatcher.antMatcher;
 
 
@@ -45,6 +46,7 @@ public class SecurityConfig {
         return http
                 .csrf(CsrfConfigurer::disable)
                 .cors(cors->cors.configurationSource(corsConfigurationSource()))
+                .cors(withDefaults())
                 .httpBasic(httrBasic -> {})
                 .authorizeHttpRequests(req -> req.requestMatchers(antMatcher("/h2-console/**")).permitAll())
                 .authorizeHttpRequests(req -> req.requestMatchers(antMatcher("/api/v1/orders")).permitAll())
@@ -82,7 +84,7 @@ public class SecurityConfig {
         corsConfiguration.setAllowedHeaders(List.of("Authorization", "Cache-Control", "Content-Type"));
         corsConfiguration.setAllowedOrigins(List.of("*"));
         corsConfiguration.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "PUT", "OPTIONS", "PATCH", "DELETE"));
-        corsConfiguration.setAllowCredentials(true);
+//        corsConfiguration.setAllowCredentials(true);
         corsConfiguration.setExposedHeaders(List.of("Authorization"));
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         source.registerCorsConfiguration("/**", corsConfiguration);

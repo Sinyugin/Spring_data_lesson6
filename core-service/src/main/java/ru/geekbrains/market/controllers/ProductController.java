@@ -14,6 +14,7 @@ import ru.geekbrains.market.validators.ProductValidator;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/v1/products")
+@CrossOrigin("*")
 public class ProductController {
     private final ProductServices productServices;
     private final ProductConverter productConverter;
