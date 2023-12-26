@@ -7,6 +7,7 @@
         <version>3.1.4</version>
         <relativePath/>
     </parent>
+
     <groupId>ru.geekbrains.market</groupId>
     <artifactId>core-service</artifactId>
     <version>0.0.1-SNAPSHOT</version>
@@ -20,6 +21,7 @@
         <maven.compiler.source>19</maven.compiler.source>
         <maven.compiler.target>19</maven.compiler.target>
     </properties>
+
     <dependencies>
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -29,11 +31,13 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
+
         <dependency>
-            <groupId>io.jsonwebtoken</groupId>
-            <artifactId>jjwt</artifactId>
-            <version>0.7.0</version>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-webflux</artifactId>
+            <version>3.1.5</version>
         </dependency>
+
         <dependency>
             <groupId>javax.xml.bind</groupId>
             <artifactId>jaxb-api</artifactId>
@@ -56,11 +60,7 @@
             <artifactId>flyway-core</artifactId>
             <version>9.11.0</version>
         </dependency>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-security</artifactId>
-            <version>3.1.5</version>
-        </dependency>
+
         <dependency>
             <groupId>ru.geekbrains.market</groupId>
             <artifactId>api</artifactId>

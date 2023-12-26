@@ -1,15 +1,15 @@
 angular.module('market', []).controller('indexController', function ($scope, $http) {
 
     $scope.loadProducts = function () {
-        $http.get('http://localhost:8080/api/v1/products').then(function (response) {
+        $http.get('http://localhost:5555/core/api/v1/products').then(function (response) {
                 $scope.productsList = response.data.content;
                 console.log(response);
             })
     }
 
     $scope.addNewProduct = function () {
-        $http.post('http://localhost:8080/api/v1/products', $scope.newProduct)
-            .then(function (responce) {
+        $http.post('http://localhost:5555/core/api/v1/products', $scope.newProduct)
+            .then(function (resposce) {
                 $scope.loadProducts();
             })
     }
