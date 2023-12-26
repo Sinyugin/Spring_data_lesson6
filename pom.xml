@@ -9,6 +9,7 @@
         <module>core-service</module>
         <module>front-service</module>
         <module>gateway-service</module>
+        <module>auth-service</module>
     </modules>
 
     <groupId>ru.geekbrains</groupId>
